@@ -22,4 +22,6 @@ jobs:
           pip install pytest
           pytest
       - name: lint
-        run: flake8 --max-line-length 120 main.py tbd test
+        run: |
+          pip install flake8
+          flake8 --max-line-length 120 main.py tbd test
