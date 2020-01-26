@@ -36,6 +36,7 @@ class TrelloApiClient:
             'name': card_title
         }
         resp = self._RequestApi(url, 'POST', data=data)
+        logger.info(resp.status_code)
         if resp.status_code == 200:
             card_title = resp.json()['name']
             logger.info('create card: %s' % card_title)
@@ -56,6 +57,7 @@ class TrelloApiClient:
             'idList': list_id
         }
         resp = self._RequestApi(url, 'GET', data=data)
+        logger.info(resp.status_code)
         if resp.status_code == 200:
             return [{'id': card['id'], 'name': card['name']} for card in resp.json()]
         else:
@@ -67,6 +69,7 @@ class TrelloApiClient:
             'closed': 'true'
         }
         resp = self._RequestApi(url, 'PUT', data)
+        logger.info(resp.status_code)
         if resp.status_code == 200:
             return resp.json()['name']
         else:
