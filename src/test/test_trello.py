@@ -87,6 +87,6 @@ class TestTrelloAPIClient(unittest.TestCase):
         client._close_card_by_id = Mock(side_effect=_close_by_id)
 
         card_title = ['title1', 'title2', 'title3']
-        expected = ['title1', 'title2']
+        expected = ['title2', 'title1']
         actual = client.close_cards_by_titles(card_title, 'list_id')
         self.assertEqual(expected, actual)
