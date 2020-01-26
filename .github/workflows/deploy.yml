@@ -19,3 +19,4 @@ jobs:
         run: |
           zip src.zip src
           gsutil mv ./src.zip ${{ secrets.GCS_BUCKET }}
+        working-directory: ./src
