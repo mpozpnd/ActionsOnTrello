@@ -1,0 +1,21 @@
+name: upload GCS
+
+on: [ push ]
+
+jobs:
+  build:
+    name: deploy functions
+    runs-on: ubuntu-latest
+    steps:
+      - name: checkout
+        uses: actions/checkout@v1
+
+      - name: Setup Google Cloud
+        uses: GoogleCloudPlatform/github-actions/setup-gcloud@master
+        with:
+          version: '275.0.0'
+          service_account_key: ${{ secrets.GCP_SA_KEY }}
+      - name: test gcloud command
+        run: |
+          zip src.zip src
+          gsutil mv ./src.zip ${{ secrets.GCS_BUCKET }}

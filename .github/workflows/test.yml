@@ -17,11 +17,14 @@ jobs:
         run: |
           python -m pip install --upgrade pip
           pip install -r requirements.txt
+        working-directory: ./src
       - name: pytest
         run: |
           pip install pytest
           pytest
+        working-directory: ./src
       - name: lint
         run: |
           pip install flake8
-          flake8 --max-line-length 120 main.py tbd test
+          flake8 --max-line-length 120 main.py g2trello test
+        working-directory: ./src

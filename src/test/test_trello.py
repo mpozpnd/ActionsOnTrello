@@ -2,7 +2,7 @@ import unittest
 from unittest.mock import patch, Mock, MagicMock
 import requests
 
-from aot.trello import TrelloApiClient
+from g2trello.trello import TrelloApiClient
 
 
 class TestTrelloAPIClient(unittest.TestCase):

@@ -1,8 +1,8 @@
 import os
 from logging import getLogger
 
-from aot.trello import TrelloApiClient
-from aot.utils import generate_response
+from g2trello.trello import TrelloApiClient
+from g2trello.utils import generate_response
 
 logger = getLogger(__file__)
 
