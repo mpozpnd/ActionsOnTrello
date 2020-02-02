@@ -16,6 +16,8 @@ jobs:
       TF_VAR_trello_key: ${{ secrets.TRELLO_KEY }}
       TF_VAR_trello_list_shopping: ${{ secrets.TRELLO_LIST_SHOPPING }}
       TF_VAR_trello_list_todo: ${{ secrets.TRELLO_LIST_TODO }}
+      TF_VAR_service_account_key: ${{ secrets.GCP_SA_KEY_ }}
+
     steps:
       - name: checkout
         uses: actions/checkout@v1
@@ -44,7 +46,6 @@ jobs:
             tf_actions_working_dir: 'infra'
         env:
             TF_VAR_release_version: ${{ steps.add_release_version.outputs.tag }}
-            TF_VAR_service_account_key: ${{ secrets.GCP_SA_KEY }}
             GOOGLE_CREDENTIALS: ${{ secrets.GCP_SA_KEY_ }}
 
       - name: 'Terraform Validate'
@@ -55,7 +56,6 @@ jobs:
             tf_actions_working_dir: 'infra'
         env:
             TF_VAR_release_version: ${{ steps.add_release_version.outputs.tag }}
-            TF_VAR_service_account_key: ${{ secrets.GCP_SA_KEY }}
             GOOGLE_CREDENTIALS: ${{ secrets.GCP_SA_KEY_ }}
 
       - name: 'Terraform Plan'
@@ -66,7 +66,6 @@ jobs:
             tf_actions_working_dir: 'infra'
         env:
             TF_VAR_release_version: ${{ steps.add_release_version.outputs.tag }}
-            TF_VAR_service_account_key: ${{ secrets.GCP_SA_KEY }}
             GOOGLE_CREDENTIALS: ${{ secrets.GCP_SA_KEY_ }}
 
       - name: 'Terraform Apply'
@@ -77,6 +76,4 @@ jobs:
             tf_actions_working_dir: 'infra'
         env:
             TF_VAR_release_version: ${{ steps.add_release_version.outputs.tag }}
-            TF_VAR_service_account_key: ${{ secrets.GCP_SA_KEY }}
             GOOGLE_CREDENTIALS: ${{ secrets.GCP_SA_KEY_ }}
-
