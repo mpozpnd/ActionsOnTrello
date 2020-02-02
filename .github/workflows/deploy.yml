@@ -11,7 +11,10 @@ jobs:
     runs-on: ubuntu-latest
     env:
       GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-      GOOGLE_CREDENTIALS: ${{ secrets.GCP_SA_KEY }}
+      TF_VAR_trello_token: ${{ secrets.TRELLO_TOKEN }}
+      TF_VAR_trello_key: ${{ secrets.TRELLO_KEY }}
+      TF_VAR_trello_list_shopping: ${{ secrets.TRELLO_LIST_SHOPPING }}
+      TF_VAR_trello_list_todo: ${{ secrets.TRELLO_LIST_TODO }}
     steps:
       - name: checkout
         uses: actions/checkout@v1
