@@ -26,7 +26,7 @@ jobs:
           version: '275.0.0'
           service_account_key: ${{ secrets.GCP_SA_KEY }}
 
-      - name: test gcloud command
+      - name: upload to gcs
         run: |
           zip -r src_${{ steps.add_release_version.outputs.tag }}.zip .
           gsutil mv src_${{ steps.add_release_version.outputs.tag }}.zip ${{ secrets.GCS_BUCKET }}
@@ -41,7 +41,7 @@ jobs:
         env:
             TF_VAR_release_version: ${{ steps.add_release_version.outputs.tag }}
             TF_VAR_service_account_key: ${{ secrets.GCP_SA_KEY }}
-            service_account_key: ${{ secrets.GCP_SA_KEY }}
+            GOOGLE_CREDENTIALS: ${{ secrets.GCP_SA_KEY_ }}
 
       - name: 'Terraform Validate'
         uses: hashicorp/terraform-github-actions@master
