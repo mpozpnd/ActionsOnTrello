@@ -13,11 +13,10 @@ jobs:
       - name: checkout
         uses: actions/checkout@v1
       - name: add release tag
-        id: add_release_tag
+        id: add_release_version
         uses: anothrNick/github-tag-action@master
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-
       - name: Setup Google Cloud
         uses: GoogleCloudPlatform/github-actions/setup-gcloud@master
         with:
