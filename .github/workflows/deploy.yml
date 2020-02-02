@@ -11,8 +11,7 @@ jobs:
     runs-on: ubuntu-latest
     env:
       GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-      GOOGLE_CLOUD_KEYFILE_JSON: ${{ secrets.GCP_SA_KEY }}
-      GOOGLE_APPLICATION_CREDENTIALS_JSON: ${{ secrets.GCP_SA_KEY }}
+      GOOGLE_CREDENTIALS: ${{ secrets.GCP_SA_KEY }}
     steps:
       - name: checkout
         uses: actions/checkout@v1
