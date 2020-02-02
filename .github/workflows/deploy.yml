@@ -9,34 +9,27 @@ jobs:
   deploy_gcs:
     name: deploy functions
     runs-on: ubuntu-latest
+    env:
+      GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
     steps:
       - name: checkout
         uses: actions/checkout@v1
+
       - name: add release tag
         id: add_release_version
         uses: anothrNick/github-tag-action@master
-        env:
-          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+
       - name: Setup Google Cloud
         uses: GoogleCloudPlatform/github-actions/setup-gcloud@master
         with:
           version: '275.0.0'
           service_account_key: ${{ secrets.GCP_SA_KEY }}
+
       - name: test gcloud command
         run: |
           zip -r src_${{ steps.add_release_version.outputs.tag }}.zip .
           gsutil mv src_${{ steps.add_release_version.outputs.tag }}.zip ${{ secrets.GCS_BUCKET }}
         working-directory: ./src/
-
-      - name: 'Terraform Format'
-        uses: hashicorp/terraform-github-actions@master
-        with:
-            tf_actions_version: 0.12.13
-            tf_actions_subcommand: 'fmt'
-            tf_actions_working_dir: 'infra'
-        env:
-            GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-            TF_VAR_release_version: ${{ steps.add_release_version.outputs.tag }}
 
       - name: 'Terraform Init'
         uses: hashicorp/terraform-github-actions@master
@@ -45,8 +38,8 @@ jobs:
             tf_actions_subcommand: 'init'
             tf_actions_working_dir: 'infra'
         env:
-            GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
             TF_VAR_release_version: ${{ steps.add_release_version.outputs.tag }}
+            TF_VAR_service_account_key: ${{ secrets.GCP_SA_KEY }}
 
       - name: 'Terraform Validate'
         uses: hashicorp/terraform-github-actions@master
@@ -55,8 +48,8 @@ jobs:
             tf_actions_subcommand: 'validate'
             tf_actions_working_dir: 'infra'
         env:
-            GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
             TF_VAR_release_version: ${{ steps.add_release_version.outputs.tag }}
+            TF_VAR_service_account_key: ${{ secrets.GCP_SA_KEY }}
 
       - name: 'Terraform Plan'
         uses: hashicorp/terraform-github-actions@master
@@ -65,8 +58,8 @@ jobs:
             tf_actions_subcommand: 'plan'
             tf_actions_working_dir: 'infra'
         env:
-            GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
             TF_VAR_release_version: ${{ steps.add_release_version.outputs.tag }}
+            TF_VAR_service_account_key: ${{ secrets.GCP_SA_KEY }}
 
       - name: 'Terraform Apply'
         uses: hashicorp/terraform-github-actions@master
@@ -75,6 +68,6 @@ jobs:
             tf_actions_subcommand: 'apply'
             tf_actions_working_dir: 'infra'
         env:
-            GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
             TF_VAR_release_version: ${{ steps.add_release_version.outputs.tag }}
+            TF_VAR_service_account_key: ${{ secrets.GCP_SA_KEY }}
 

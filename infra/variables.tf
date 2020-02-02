@@ -11,3 +11,4 @@ variable trello_token {}
 variable trello_key {}
 variable trello_list_shopping {}
 variable trello_list_todo {}
+variable service_account_key {}
