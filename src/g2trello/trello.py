@@ -47,8 +47,10 @@ class TrelloApiClient:
 
     def add_cards(self, card_titles, list_id):
         added_cards = []
+        logger.info(card_titles)
         for title in card_titles:
             added_cards.append(self._add_card(title, list_id))
+        logger.info(added_cards)
         return list(filter(lambda x: x, added_cards))
 
     def get_cards_on_list(self, list_id: str):
