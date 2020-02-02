@@ -11,6 +11,7 @@ jobs:
     runs-on: ubuntu-latest
     env:
       GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+      TF_VAR_bucket_name: ${{ secrets.GCS_BUCKET }}
       TF_VAR_trello_token: ${{ secrets.TRELLO_TOKEN }}
       TF_VAR_trello_key: ${{ secrets.TRELLO_KEY }}
       TF_VAR_trello_list_shopping: ${{ secrets.TRELLO_LIST_SHOPPING }}
