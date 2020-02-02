@@ -35,7 +35,7 @@ jobs:
       - name: upload to gcs
         run: |
           zip -r src_${{ steps.add_release_version.outputs.tag }}.zip .
-          gsutil mv src_${{ steps.add_release_version.outputs.tag }}.zip ${{ secrets.GCS_BUCKET }}
+          gsutil mv src_${{ steps.add_release_version.outputs.tag }}.zip gs://${{ secrets.GCS_BUCKET }}/src_${{ steps.add_release_version.outputs.tag }}.zip
         working-directory: ./src/
 
       - name: 'Terraform Init'
